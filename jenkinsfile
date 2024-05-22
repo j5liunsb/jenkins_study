@@ -1,0 +1,26 @@
+pipeline{
+    agent any
+
+    stages {
+        stage('hi'){
+            options{
+                timeout(time: 2, unit: 'SECONDS')
+                timestamps()
+                retry(3)
+            }
+            steps {
+                echo 'hi'
+            }
+            post {
+                always {
+                    mail to :'jim.3.liu@nokia-sbell.com' , subject:'a', body:'nothing'
+                }
+            }
+        }
+    }
+    post {
+        always {
+            mail to : 'jim.3.liu@nokia-sbell.com' , subject: 'b' , body: 'somthing'
+        }
+    }
+}
